@@ -1,15 +1,15 @@
-import SHOP_DATA from '../../../shop-data.json'
+import './shop.styles.scss'
+import { Routes, Route } from "react-router-dom";
+import CategoriesPreview from "../categories-preview/categories-preview";
+import Category from "../category/category.component";
 
 const Shop = () => {
     return (
-        <div>
-            {SHOP_DATA.map(({id, name}) => (
-                <div key={id}>
-                    <h1>{name}</h1>
-                </div>
-            ))}
-        </div>
+        <Routes>
+            <Route index element={<CategoriesPreview/>}/>
+            <Route path=":category" element={<Category/>}/>
+        </Routes>
     )
 }
 
-export default Shop
+export default Shop;
