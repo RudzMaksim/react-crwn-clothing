@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { signUpWithCreds } from "../../utils/firebase/firebase.utils";
+import { signUpWithCreds } from "../../utils/firebase/firebase.auth.utils";
 import FormInput from "../form-input/form-input.component";
 import './sign-up-form.component.scss'
 import Button from "../button/button.component";
