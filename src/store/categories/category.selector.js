@@ -15,3 +15,8 @@ export const categoriesSelector = createSelector(
         return acc;
     }, {})
 );
+
+export const categoriesLoadingSelector = createSelector(
+    [selectCategoryReducer],
+    (categoriesSlice) => categoriesSlice.isLoading
+)
