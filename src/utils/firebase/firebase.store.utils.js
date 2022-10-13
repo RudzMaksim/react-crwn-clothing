@@ -43,7 +43,7 @@ export const createUserDocument = async (userAuth, additionalInfo = {}) => {
             console.log("error creating the user", error.message)
         }
     }
-    return userDocRef;
+    return userSnapshot;
 }
 
 export const addCollectionAndDocuments = async (collectionKey, objectsToAdd) => {

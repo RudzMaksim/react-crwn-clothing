@@ -5,17 +5,14 @@ import Authentication from "./components/routes/authentication/authentication.co
 import Shop from "./components/routes/shop/shop.component";
 import Checkout from "./components/routes/checkout/checkout.component";
 import { useEffect } from "react";
-import { onAuthChangeListener } from "./utils/firebase/firebase.auth.utils";
-import { setCurrentUser } from "./store/user/user.action";
+import { checkUserSession } from "./store/user/user.action";
 import { useDispatch } from "react-redux";
 
 const App = () => {
     const dispatch = useDispatch();
 
     useEffect(() => {
-        return onAuthChangeListener((user) => {
-            dispatch(setCurrentUser(user));
-        });
+        dispatch(checkUserSession())
     }, []);
 
     return (

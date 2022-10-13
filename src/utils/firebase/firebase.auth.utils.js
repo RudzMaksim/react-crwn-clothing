@@ -16,40 +16,29 @@ googleProvider.setCustomParameters({
     prompt: "select_account"
 });
 
-export const signInWithGooglePopup = async () => {
-    try {
-        const {user} = await signInWithPopup(auth, googleProvider);
-        if (user) {
-            await createUserDocument(user);
-        }
-        return user;
-    } catch (error) {
-        console.log("Error with Gogle Sign In", error);
-    }
-}
+export const signInWithGooglePopup = () => signInWithPopup(auth, googleProvider);
 
 export const signInWithEmail = (email, password) => {
     if (!email || !password) return;
     return signInWithEmailAndPassword(auth, email, password);
 }
 
-export const signUpWithCreds = async (email, password, displayName = '') => {
-    if (!displayName || !email || !password) return;
-
-    try {
-        const response = await createUserWithEmailAndPassword(auth, email, password);
-        if (response) {
-            await createUserDocument(response.user, {displayName: displayName});
-        }
-        return response;
-    } catch (error) {
-        if (error.code === 'auth/email-already-in-use') {
-            alert('Email is already in use')
-        }
-        console.log('user creation encountered an error', error)
-    }
+export const signUpWithCreds = async (email, password) => {
+    if (!email || !password) return;
+    return createUserWithEmailAndPassword(auth, email, password);
 }
 
 export const signOutUser = async () => signOut(auth);
 
-export const onAuthChangeListener = (callback) => onAuthStateChanged(auth, callback);
+export const getCurrentUser = () => {
+    return new Promise((resolve, reject) => {
+        const unsubscribe = onAuthStateChanged(
+            auth,
+            (userAuth) => {
+                unsubscribe();
+                resolve(userAuth);
+            },
+            reject
+        )
+    })
+}
